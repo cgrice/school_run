@@ -1,0 +1,21 @@
+language: python
+sudo: required
+dist: xenial
+env:
+  - PIPENV_IGNORE_VIRTUALENVS=1
+python:
+  - '3.7'
+install:
+  - 'pip install awscli'
+  - 'pipenv install --dev'
+script: 
+  - 'pipenv run black ./ --check'
+  - 'pipenv run nosetests --cover-xml-file=coverage.xml'
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: PIPENV_IGNORE_VIRTUALENVS=1 make clean package && make deploy
+  on:
+    branch: master
+  
