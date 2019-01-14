@@ -1,9 +1,10 @@
 import googlemaps
 import json
+import os
 from datetime import datetime
 
 def get_travel_duration(location, destination, when, via=None):
-    gmaps = googlemaps.Client(key='AIzaSyDNdXDHY511Ykm2fkq3dolQM80LDXtWep0')
+    gmaps = googlemaps.Client(key=os.environ.get('GMAPS_API_KEY', 'xx'))
 
     if via is not None:
         via = 'via:' + via
